@@ -15,10 +15,6 @@
         </transition>
       </router-view>
     </main>
-
-    <footer class="app-footer">
-      <p>Form Generator Demo © {{ new Date().getFullYear() }}</p>
-    </footer>
   </div>
 </template>
 
@@ -76,13 +72,6 @@ import { RouterLink, RouterView } from "vue-router";
   background: #f8f9fa;
 }
 
-.app-footer {
-  background: #2c3e50;
-  color: #fff;
-  padding: 1rem;
-  text-align: center;
-  margin-top: auto;
-}
 
 /* Transition animations */
 .fade-enter-active,
