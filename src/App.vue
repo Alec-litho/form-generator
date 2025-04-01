@@ -5,6 +5,8 @@
         <router-link to="/" class="nav-link" exact-active-class="active"> Home </router-link>
         <router-link to="/simple-form" class="nav-link" active-class="active"> Simple Form </router-link>
         <router-link to="/advanced-form" class="nav-link" active-class="active"> Advanced Form </router-link>
+        <router-link to="/forms" class="nav-link" active-class="active"> All forms </router-link>
+
       </nav>
     </header>
 

@@ -1,14 +1,8 @@
 <template>
   <div class="advanced-form">
     <h2>Advanced User Profile</h2>
-    
-    <FormGenerator
-      :config="formConfig"
-      v-model="formData"
-      @submit="handleSubmit"
-      @cancel="handleCancel"
-    >
-      <!-- Custom Phone Input -->
+
+    <FormGenerator :config="formConfig" v-model="formData" @submit="(data) => handleSubmit(data, FormType.ADVANCED)">
       <template #phone="{ field }">
         <div class="custom-phone-input">
           <label :for="field.name">{{ field.label }}</label>
@@ -23,26 +17,12 @@
         </div>
       </template>
 
-      <!-- Custom Address Input -->
       <template #address="{ field }">
         <div class="address-group">
-          <input
-            v-model="formData.street"
-            @input="(e) => updateModel('street', e.target.value)"
-            placeholder="Street"
-          />
+          <input v-model="formData.street" @input="(e) => updateModel('street', e.target.value)" placeholder="Street" />
           <div class="address-row">
-            <input
-              v-model="formData.city"
-              @input="(e) => updateModel('city', e.target.value)"
-              placeholder="City"
-            />
-            <input
-              v-model="formData.zip"
-              @input="(e) => updateModel('zip', e.target.value)"
-              placeholder="ZIP Code"
-              style="max-width: 120px"
-            />
+            <input v-model="formData.city" @input="(e) => updateModel('city', e.target.value)" placeholder="City" />
+            <input v-model="formData.zip" @input="(e) => updateModel('zip', e.target.value)" placeholder="ZIP Code" style="max-width: 120px" />
           </div>
         </div>
       </template>
@@ -53,9 +33,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import FormGenerator from "@/components/FormGenerator.vue";
-import { FormType } from "@/types/form";
+import { FormType } from "@/types/form.d";
+import { handleCancel, handleSubmit } from "@/helpers/handleFormEvents";
 
-// Model initialization
 const formData = ref({
   firstName: "",
   lastName: "",
@@ -69,12 +49,10 @@ const formData = ref({
   zip: "",
 });
 
-// Manual model update for custom slots
 const updateModel = (fieldName: string, value: any) => {
   formData.value = { ...formData.value, [fieldName]: value };
 };
 
-// Form configuration
 const formConfig = {
   submitText: "Save Profile",
   cancelText: "Cancel",

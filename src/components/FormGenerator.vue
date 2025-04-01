@@ -10,10 +10,8 @@
         :field="field" 
         :value="modelValue[field.name]"
       >
-        <!-- Default field rendering -->
         <label :for="field.name">{{ field.label }}</label>
         
-        <!-- Input/Textarea/Select -->
         <component
           v-if="field.type !== 'checkbox'"
           :is="getFieldComponent(field.type)"
@@ -32,7 +30,6 @@
           </option>
         </component>
 
-        <!-- Checkbox -->
         <input
           v-else
           type="checkbox"
@@ -101,7 +98,7 @@ const updateField = (fieldName: string, value: any) => {
   emit("update:modelValue", updatedModel);
 };
 
-const handleSubmit = () => emit("submit");
+const handleSubmit = () => emit("submit", props.modelValue);
 const handleCancel = () => emit("cancel");
 </script>
 
