@@ -1,20 +1,33 @@
-import type { FormConfig } from '@/types/form'
+import { FormType, type Form } from '@/types/form.d'
+import { createStore } from 'vuex'
 
-export interface FormState {
-  formConfigs: Record<string, FormConfig>
+interface IformStore {
+  forms: Form[],
+  currentForm: Form
 }
 
-export const formStore = {
-  namespaced: true,
-  state: () => ({
-    formConfigs: {}
-  }),
-  mutations: {
-    saveFormConfig(state, { name, config }) {
-      state.formConfigs[name] = config
+export const formStore = createStore({ 
+  state:{
+    forms: [],
+    currentForm: {  
+      fields: [],
+      type: FormType.SIMPLE
     }
   },
+  mutations: {
+    saveCurrentForm(state:IformStore, form:Form) {
+      try {
+        console.log(form)
+        state.currentForm = form
+        state.forms.push(form)
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
+
+  },
   getters: {
-    getFormConfig: (state) => (name: string) => state.formConfigs[name]
+    getCurrentForm: (state:IformStore) => () => state.currentForm
   }
-}
+})
