@@ -1,34 +1,31 @@
-import { FormType, type Form } from '@/types/form.d'
-import { createStore } from 'vuex'
+import { FormType, type Form } from "@/types/form.d";
+import { createStore } from "vuex";
 
 interface IformStore {
-  forms: Form[],
-  currentForm: Form
+  forms: Form[];
+  currentForm: Form;
 }
 
-export const formStore = createStore({ 
+export const formStore = createStore({
   state: {
-    forms: [] as FormData[]
+    forms: [] as FormData[],
   },
   mutations: {
-    addForm(state:IformStore, form: FormData) {
+    addForm(state: IformStore, form: FormData) {
       state.forms.push(form);
     },
-    deleteForm(state:IformStore, formId: string) {
-      state.forms = state.forms.filter(form => form.id !== formId);
-    }
   },
   actions: {
-    saveForm({ commit }, form: Omit<FormData, 'id' | 'createdAt'>) {
+    saveForm({ commit }, form: Omit<FormData, "id" | "createdAt">) {
       const newForm = {
         ...form,
         id: Date.now().toString(),
-        createdAt: new Date()
+        createdAt: new Date(),
       };
-      commit('addForm', newForm);
-    }
+      commit("addForm", newForm);
+    },
   },
   getters: {
-    allForms: (state:IformStore) => () => state.forms
-  }
-})
+    allForms: (state: IformStore) => () => state.forms,
+  },
+});

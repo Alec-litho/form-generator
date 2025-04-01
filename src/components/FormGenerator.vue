@@ -1,17 +1,9 @@
 <template>
   <form class="form-generator" @submit.prevent="handleSubmit">
-    <div 
-      v-for="field in config.fields" 
-      :key="field.name" 
-      class="form-field"
-    >
-      <slot 
-        :name="field.slotName || field.name" 
-        :field="field" 
-        :value="modelValue[field.name]"
-      >
+    <div v-for="field in config.fields" :key="field.name" class="form-field">
+      <slot :name="field.slotName || field.name" :field="field" :value="modelValue[field.name]">
         <label :for="field.name">{{ field.label }}</label>
-        
+
         <component
           v-if="field.type !== 'checkbox'"
           :is="getFieldComponent(field.type)"
@@ -21,23 +13,12 @@
           @change="(e) => updateField(field.name, e.target.value)"
           v-bind="field.attributes"
         >
-          <option 
-            v-for="option in field.options" 
-            :key="option.value" 
-            :value="option.value"
-          >
+          <option v-for="option in field.options" :key="option.value" :value="option.value">
             {{ option.label }}
           </option>
         </component>
 
-        <input
-          v-else
-          type="checkbox"
-          :id="field.name"
-          :checked="!!modelValue[field.name]"
-          @change="(e) => updateField(field.name, e.target.checked)"
-          v-bind="field.attributes"
-        >
+        <input v-else type="checkbox" :id="field.name" :checked="!!modelValue[field.name]" @change="(e) => updateField(field.name, e.target.checked)" v-bind="field.attributes" />
       </slot>
     </div>
 
@@ -45,11 +26,7 @@
       <button type="submit" class="submit-btn">
         {{ config.submitText || "Submit" }}
       </button>
-      <button 
-        type="button" 
-        class="cancel-btn" 
-        @click="handleCancel"
-      >
+      <button type="button" class="cancel-btn" @click="handleCancel">
         {{ config.cancelText || "Cancel" }}
       </button>
     </div>
