@@ -7,8 +7,13 @@ export interface FormField {
     slotName?: string
   }
   
-  export interface FormConfig {
+  export interface Form {
     fields: FormField[]
-    submitText?: string
-    cancelText?: string
+    type: FormType
+  }
+
+
+  export enum FormType{
+    SIMPLE,
+    ADVANCED
   }
