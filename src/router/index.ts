@@ -1,14 +1,30 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import SimpleFormView from '../views/SimpleFormView.vue'
+
+import AdvancedFormView from '@/views/AdvancedFormView.vue';
+import FormList from '@/views/FormList.vue';
+import HomeView from '@/views/HomeView.vue';
+import SimpleFormView from '@/views/SimpleFormView.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
-  { path: '/', component: HomeView },
+  {
+    path: '/',
+    component: HomeView
+  },
+  {
+    path: '/advanced-form',
+    component: AdvancedFormView
+  },
   { path: '/simple-form', component: SimpleFormView },
-  { path: '/advanced-form', component: () => import('../views/AdvancedFormView.vue') }
-]
 
-export default createRouter({
+  {
+    path: '/forms',
+    component: FormList
+  }
+];
+
+const router = createRouter({
   history: createWebHistory(),
   routes
-})
+});
+
+export default router;

@@ -7,27 +7,28 @@ interface IformStore {
 }
 
 export const formStore = createStore({ 
-  state:{
-    forms: [],
-    currentForm: {  
-      fields: [],
-      type: FormType.SIMPLE
-    }
+  state: {
+    forms: [] as FormData[]
   },
   mutations: {
-    saveCurrentForm(state:IformStore, form:Form) {
-      try {
-        console.log(form)
-        state.currentForm = form
-        state.forms.push(form)
-      } catch (error) {
-        console.log(error)
-      }
-
+    addForm(state:IformStore, form: FormData) {
+      state.forms.push(form);
+    },
+    deleteForm(state:IformStore, formId: string) {
+      state.forms = state.forms.filter(form => form.id !== formId);
     }
-
+  },
+  actions: {
+    saveForm({ commit }, form: Omit<FormData, 'id' | 'createdAt'>) {
+      const newForm = {
+        ...form,
+        id: Date.now().toString(),
+        createdAt: new Date()
+      };
+      commit('addForm', newForm);
+    }
   },
   getters: {
-    getCurrentForm: (state:IformStore) => () => state.currentForm
+    allForms: (state:IformStore) => () => state.forms
   }
 })

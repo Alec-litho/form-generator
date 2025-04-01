@@ -5,8 +5,11 @@ import type { FormType } from "@/types/form"
 const store = formStore
 
 export const handleSubmit = (data: typeof FormData, type: FormType) => {
-  console.log(data)
-    store.commit("saveCurrentForm", {fields: data, type})
+    // store.commit("saveCurrentForm", {fields: data, type})
+    store.dispatch('saveForm', {
+      title: `Form ${new Date().toLocaleString()}`,
+      fields: data
+    });
     router.push('/')
   }
   
