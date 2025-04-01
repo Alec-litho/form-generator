@@ -1,5 +1,5 @@
 <template>
-  <FormGenerator :config="formConfig" v-model="formData" @submit="handleSubmit" @cancel="handleCancel">
+  <FormGenerator :config="formConfig" v-model="formData" @submit="(data) => handleSubmit(data, FormType.SIMPLE)" @cancel="handleCancel">
     <template #custom-input="{ field, value }">
       <div class="custom-input-wrapper">
         <label :for="field.name">{{ field.label }}</label>
@@ -12,7 +12,8 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import FormGenerator from "@/components/FormGenerator.vue";
-import type { FormConfig } from "@/types/form";
+import { FormType, type FormConfig } from "@/types/form.d";
+import { handleCancel, handleSubmit } from "@/helpers/handleFormEvents";
 
 const formData = reactive({
   username: "",
@@ -47,14 +48,6 @@ const formConfig: FormConfig = {
       attributes: { type: "checkbox" },
     },
   ],
-};
-
-const handleSubmit = (data: typeof formData) => {
-  console.log("Form submitted:", data);
-};
-
-const handleCancel = () => {
-  console.log("Form cancelled");
 };
 </script>
 
